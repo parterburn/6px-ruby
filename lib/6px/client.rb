@@ -47,6 +47,11 @@ class SixPX
     self
   end
 
+  def destination(destination)
+    @destination = destination
+    self
+  end
+
   # Defines all functions for methods
   METHOD_NAMES.each do |mn|
     define_method(mn) do |params|
