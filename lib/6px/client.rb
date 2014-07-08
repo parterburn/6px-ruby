@@ -1,3 +1,5 @@
+require 'json'
+
 class SixPX
   include HTTParty
 
@@ -18,7 +20,7 @@ class SixPX
     @methods = []
     @refs = {}
     @type = 'jpeg'
-    @destination = ''
+    @url = ''
   end
 
   # For querying what jobs have been submitted
@@ -47,8 +49,8 @@ class SixPX
     self
   end
 
-  def destination(destination)
-    @destination = destination
+  def url(url)
+    @url = url
     self
   end
 
@@ -87,7 +89,7 @@ class SixPX
           methods: @methods,
           type: "image/#{@type}",
           ref: @refs,
-          url: @destination
+          url: @url
         }
       ]
     }
@@ -100,6 +102,6 @@ class SixPX
     @methods = []
     @refs = {}
     @type = 'jpeg'
-    @destination = ''
+    @url = ''
   end
 end
