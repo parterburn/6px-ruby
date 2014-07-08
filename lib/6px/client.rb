@@ -25,9 +25,11 @@ class SixPX
 
   # For querying what jobs have been submitted
   def jobs(*query)
-    job_id = query.first.delete(:job_id) if query.first
+    query = query.first
+    job_id = query.delete(:job_id) if query
     url = job_id ? "jobs/#{job_id}" : "jobs"
-    response = self.class.get(url, query: query.first).body
+    query = clean_up_search_params(query)
+    response = self.class.get(url, query: query).body
     JSON.parse(response)
   end
 
@@ -71,6 +73,12 @@ class SixPX
   end
 
   private
+
+  def clean_up_search_params(params)
+    parsed_hash = {}
+    params.each {|i,k| parsed_hash[i.to_s.gsub('_', '.')] = k }
+    parsed_hash
+  end
 
   # Add methods to method hash
   def add_method(method, options)

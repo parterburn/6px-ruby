@@ -1,6 +1,5 @@
-# OUDATED WILL BE UPDATING README
-
-# Ruby Wrapper for 6px API
+Ruby Wrapper for 6px API
+======================================
 
 ### Setup
 
@@ -10,7 +9,7 @@ To install this gem on your system, run:
 
 If you want to add this gem to a rails app, then add the following line to your Gemfile:
 
-`gem 'six_px''
+`gem 'six_px'`
 
 ## Authenticating
 
@@ -58,57 +57,192 @@ jobs = six_px.jobs(sort_by: 'created,asc')
 
 Search is similar to the ones above. Just add params onto the job method:
 
+#### Number Params
+
+Check out all options: [here](https://github.com/6px-io/6px-api-docs#number)
+
+In order to get deeper params, use the " _ " instead of the "."" when entering the params. For example, 'processed_bytes' will be the same thing as 'processed.bytes' in an api call (example below).
+
+<pre><code># This query will return all jobs that processed more than 1048576 bytes:
+jobs = six_px.jobs(processed_bytes: '{gt}1048576')
+</code></pre>
+
+#### String Params
+
+Check out all options: [here](https://github.com/6px-io/6px-api-docs#string)
+
 <pre><code># This query will return all jobs that did not fail:
 jobs = six_px.jobs(status: '{not}failed')
 </code></pre>
 
+#### Location Params
+
+Check out all options: [here](https://github.com/6px-io/6px-api-docs#location)
+
+<pre><code># This query will return all jobs that were near the longitude and latitude of [0.0176,-105.2797]:
+jobs = six_px.jobs(processed_images_latlon: '{near}40.0176,-105.2797')
+</code></pre>
+
+#### Date Params
+
+Check out all options: [here](https://github.com/6px-io/6px-api-docs#dates)
+
+<pre><code># This query will return all the jobs created after right now:
+
+# Need to convert the time to iso8601
+formatted_time = Time.new.iso8601
+jobs = six_px.jobs(created: "{gt}#{fomatted_time}")
+</code></pre>
+
+#### Chain Up Params
+
 These commands can also be input with the pagination and sorting params like so:
 
-`jobs = six_px.jobs(page: 1, per_page: 50, sort_by: 'status', status: '{not}failed')`
+<pre><code>formatted_time = Time.new.iso8601
+jobs = six_px.jobs(page: 1, per_page: 50, sort_by: 'status', status: '{not}failed', created: "{gt}#{fomatted_time}")`
+</code></pre>
 
 ## Methods
 
-All the available methods are listed: [here](https://github.com/6px-io/6px-api-docs#methods)
+### Stucture of submitting a job to process images
 
-### Example query of resizing 5 different images
-<pre><code># Set up the hash of images you want to process
-inputs =  {
-  'img1' => 'http://donaldmurrayexpat.com/wp-content/uploads/2014/02/Cool-2.jpg',
-  'img2' => 'http://donaldmurrayexpat.com/wp-content/uploads/2014/02/Cool-2.jpg',
-  'img3' => 'http://donaldmurrayexpat.com/wp-content/uploads/2014/02/Cool-2.jpg',
-  'img4' => 'http://donaldmurrayexpat.com/wp-content/uploads/2014/02/Cool-2.jpg'
-}
+#### Resizing one image
+<pre><code>
+# Initialize SixPX authenticated object
+six_px = SixPX.new(user_id: YOUR_USER_ID, api_key: YOUR_API_KEY, api_secret: YOUR_SECRET_API_KEY)
 
-# Build the hash of methods you want to perform on the images
-# You can keep chaining them or just send one. Up to you!
-methods = [
-  {
-    'method' => 'resize',
-    'options' => {
-      'height' => 400,
-      'width' => 400
-    }
-  },
-  {
-    'method' => 'filter',
-    'options' => {
-      'colorize' => {'hex' => '#000', 'strength' => 30 }
-    }
-  }
-]
+# Setup images to be processed
+images =  {snowboarding: 'URL_TO_IMG'}
 
-# Now send the payload!
-# The image type can be: ['jpeg', 'png', 'gif'] and defaults to 'jpeg' if not entered
-# The output url is also options.
+# The authenticated object
+# Add the hash of the image you want to add
+# Rotate the image 90 degress
+# The output url - 6px will put it on their hosting platform
+# Tells 6px to process the 'snowboarding' image and rename it 'sideways_snowboarding'
+# Submit the job to 6px
 
-response = six_px.process_images(inputs, methods, 'jpeg', 's3://key:secret@bucket/path')
+six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  url('6px').
+  refs({snowboarding: 'sideways_snowboarding'}).
+  send
 </code></pre>
 
+#### Resizing five images
+<pre><code>
+# Initialize SixPX authenticated object
+six_px = SixPX.new(user_id: YOUR_USER_ID, api_key: YOUR_API_KEY, api_secret: YOUR_SECRET_API_KEY)
+
+# Setup images to be processed
+images =  {
+  img1: 'URL_TO_IMG1',
+  img2: 'URL_TO_IMG2',
+  img3: 'URL_TO_IMG3',
+  img4: 'URL_TO_IMG4',
+  img5: 'URL_TO_IMG5'
+}
+
+# Setup outputs name mapping
+outputs = {
+  img1: 'processed_img1,
+  img2: 'processed_img2,
+  img3: 'processed_img3,
+  img4: 'processed_img4,
+  img5: 'processed_img5
+}
+
+# The authenticated object
+# Add the hash of the images you want to add
+# Rotate the images 90 degress
+# The output url - 6px will put it on their hosting platform
+# Tells 6px to process the all five images
+# Submit the job to 6px
+
+six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  url('6px').
+  refs(outputs).
+  send
+</code></pre>
+
+All the available methods are listed: [here](https://github.com/6px-io/6px-api-docs#methods)
+
+These methods can also be chained!
+
+#### Rotate
+<pre><code>six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  url('6px').
+  refs(outputs).
+  send
+</code></pre>
+
+#### Resize
+<pre><code>six_px.
+  inputs(images).
+  resize({height: 400, width: 400}).
+  url('6px').
+  refs(outputs).
+  send
+</code></pre>
+
+#### Crop
+<pre><code>six_px.
+  inputs(images).
+  crop({height: 400, width: 400, x: 0, y: 0}).
+  url('6px').
+  refs(outputs).
+  send
+</code></pre>
+
+#### Filter
+<pre><code>six_px.
+  inputs(images).
+  filter({sepia: 70, gama: 45}).
+  url('6px').
+  refs(outputs).
+  send
+</code></pre>
+
+#### Layer
+<pre><code>inputs =  {
+  img1: 'URL_TO_IMG1',
+  img2: 'URL_TO_IMG2'
+}
+
+six_px.
+  inputs(images).
+  layer({x: 0, y: 0, opacity: 0.5, ref: 'img2'}).
+  url('6px').
+  refs(outputs).
+  send
+</code></pre>
+
+#### Analyze
+<pre><code>six_px.
+  inputs(images).
+  analyze({type: 'color', context: 'palette'}).
+  url('6px').
+  refs({golden_gate: false}).
+  send
+</code></pre>
+
+#### Chain up multiple!
+<pre><code>six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  resize({height: 400, width: 400}).
+  crop({height: 400, width: 400, x: 0, y: 0}).
+  filter({sepia: 70, gama: 45}).
+  url('6px').
+  refs({golden_gate: false}).
+  send
+</code></pre>
 
 # NEED TO DO
- * Figure out how to include nested search params
- * Convert dates from Ruby object to ISO 8601
- * Rescue errors
  * Learn more about the data object
  * Learn more about the callback call
 
