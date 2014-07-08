@@ -172,6 +172,11 @@ All the available methods are listed: [here](https://github.com/6px-io/6px-api-d
 These methods can also be chained!
 
 #### Rotate
+
+This will rotate the image.
+
+Full documentation of method options: [here](https://github.com/6px-io/6px-api-docs#rotate)
+
 <pre><code>six_px.
   inputs(images).
   rotate({degrees: 90}).
@@ -181,6 +186,11 @@ These methods can also be chained!
 </code></pre>
 
 #### Resize
+
+This will resize the image.
+
+Full documentation of method options: [here](https://github.com/6px-io/6px-api-docs#resize)
+
 <pre><code>six_px.
   inputs(images).
   resize({height: 400, width: 400}).
@@ -190,6 +200,11 @@ These methods can also be chained!
 </code></pre>
 
 #### Crop
+
+This will crop the image.
+
+Full documentation of method options: [here](https://github.com/6px-io/6px-api-docs#crop)
+
 <pre><code>six_px.
   inputs(images).
   crop({height: 400, width: 400, x: 0, y: 0}).
@@ -199,6 +214,11 @@ These methods can also be chained!
 </code></pre>
 
 #### Filter
+
+This will apply filters to the image.
+
+Full documentation of method options: [here](https://github.com/6px-io/6px-api-docs#filter)
+
 <pre><code>six_px.
   inputs(images).
   filter({sepia: 70, gama: 45}).
@@ -208,6 +228,11 @@ These methods can also be chained!
 </code></pre>
 
 #### Layer
+
+This will layer the images on top of each other.
+
+Full documentation of method options: [here](https://github.com/6px-io/6px-api-docs#layer)
+
 <pre><code>inputs =  {
   img1: 'URL_TO_IMG1',
   img2: 'URL_TO_IMG2'
@@ -222,6 +247,11 @@ six_px.
 </code></pre>
 
 #### Analyze
+
+This will analyze the image.
+
+Full documentation of method options: [here](https://github.com/6px-io/6px-api-docs#analyze)
+
 <pre><code>six_px.
   inputs(images).
   analyze({type: 'color', context: 'palette'}).
