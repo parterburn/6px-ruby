@@ -1,3 +1,5 @@
+# OUDATED WILL BE UPDATING README
+
 # Ruby Wrapper for 6px API
 
 ### Setup
