@@ -5,11 +5,11 @@ Ruby Wrapper for 6px API
 
 To install this gem on your system, run:
 
-`gem install six_px`
+`gem install 6px`
 
 If you want to add this gem to a rails app, then add the following line to your Gemfile:
 
-`gem 'six_px'`
+`gem '6px'`
 
 ## Authenticating
 
@@ -118,6 +118,7 @@ images =  {snowboarding: 'URL_TO_IMG'}
 # Add the hash of the image you want to add
 # Rotate the image 90 degress
 # The output url - 6px will put it on their hosting platform
+# Tell 6px to output in a gif - Possible options: ['gif', 'jpeg', 'png'] - Default: 'jpeg'
 # Tells 6px to process the 'snowboarding' image and rename it 'sideways_snowboarding'
 # Submit the job to 6px
 
@@ -125,6 +126,7 @@ six_px.
   inputs(images).
   rotate({degrees: 90}).
   url('6px').
+  type('png').
   refs({snowboarding: 'sideways_snowboarding'}).
   send
 </code></pre>
@@ -156,6 +158,7 @@ outputs = {
 # Add the hash of the images you want to add
 # Rotate the images 90 degress
 # The output url - 6px will put it on their hosting platform
+# Tell 6px to output in a png - Possible options: ['gif', 'jpeg', 'png'] - Default: 'jpeg'
 # Tells 6px to process the all five images
 # Submit the job to 6px
 
@@ -163,6 +166,7 @@ six_px.
   inputs(images).
   rotate({degrees: 90}).
   url('6px').
+  type('png').
   refs(outputs).
   send
 </code></pre>
@@ -272,7 +276,49 @@ Full documentation of method options: [here](https://github.com/6px-io/6px-api-d
   send
 </code></pre>
 
-# NEED TO DO
- * Learn more about the data object
- * Learn more about the callback call
+## Additional Options
 
+#### Type
+
+Tell 6px to output in a png - Possible options: ['gif', 'jpeg', 'png'] - Default: 'jpeg'
+
+<pre><code>six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  url('6px').
+  type('png').
+  refs(outputs).
+  send
+</code></pre>
+
+#### Data
+
+Add addtional custom data on your job
+
+<pre><code>six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  url('6px').
+  data({this_image_is: 'sweet'}).
+  refs(outputs).
+  send
+</code></pre>
+
+#### Callback
+
+Add a callback that will POST the job params to a url specified
+
+<pre><code>six_px.
+  inputs(images).
+  rotate({degrees: 90}).
+  url('6px').
+  callback({url: 'http://mattl.co'}).
+  refs(outputs).
+  send
+</code></pre>
+
+## Issue
+
+Having issues or found bugs?
+
+Open an issue and I will respond back as quickly as I can!

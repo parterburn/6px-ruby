@@ -21,6 +21,8 @@ class SixPX
     @refs = {}
     @type = 'jpeg'
     @url = ''
+    @data = {}
+    @callback = ''
   end
 
   # For querying what jobs have been submitted
@@ -51,8 +53,21 @@ class SixPX
     self
   end
 
+  # Sets output url
   def url(url)
     @url = url
+    self
+  end
+
+  # Sets additional data on job
+  def data(data)
+    @data = data
+    self
+  end
+
+  # Sets callbacks on job
+  def callback(callback)
+    @callback = callback
     self
   end
 
@@ -99,7 +114,11 @@ class SixPX
           ref: @refs,
           url: @url
         }
-      ]
+      ],
+      data: @data,
+      callback: {
+        url: @callback
+      }
     }
   end
 
@@ -111,5 +130,7 @@ class SixPX
     @refs = {}
     @type = 'jpeg'
     @url = ''
+    @data = {}
+    @callback = ''
   end
 end
