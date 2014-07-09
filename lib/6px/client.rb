@@ -40,7 +40,7 @@ class PX
 
     @output = {
       ref: images,
-      type: 'images/jpeg',
+      type: 'image/jpeg',
       url: '',
       methods: []
     }
@@ -124,9 +124,9 @@ class PX
     jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
     jpg2 = Regexp.new("\xff\xd8\xff\xe1(.*){2}Exif".force_encoding("binary"))
     case IO.read(path, 10)
-    when /^GIF8/ then 'images/gif'
-    when /^#{png}/ then 'images/png'
-    when /^#{jpg}/, /^#{jpg2}/ then 'images/jpg'
+    when /^GIF8/ then 'image/gif'
+    when /^#{png}/ then 'image/png'
+    when /^#{jpg}/, /^#{jpg2}/ then 'image/jpg'
     end
   end
 

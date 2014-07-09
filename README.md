@@ -125,7 +125,7 @@ outputs =  {snowboarding: false}
 # Add the hash of the image you want to add
 # Rotate the image 90 degress
 # The output url - 6px will put it on their hosting platform
-# Tell 6px to output in a gif - Possible options: ['images/gif', 'images/jpeg', 'images/png'] - Default: 'images/jpeg'
+# Tell 6px to output in a gif - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the 'snowboarding' image and rename it 'sideways_snowboarding'
 # Submit the job to 6px
 
@@ -134,7 +134,7 @@ px.
   output(outputs).
     rotate({degrees: 90}).
     url('6px').
-    type('images/png').
+    type('image/png').
   save
 </code></pre>
 
@@ -165,7 +165,7 @@ outputs = {
 # Add the hash of the images you want to add
 # Rotate the images 90 degress
 # The output url - 6px will put it on their hosting platform
-# Tell 6px to output in a png - Possible options: ['images/gif', 'images/jpeg', 'images/png'] - Default: 'images/jpeg'
+# Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the all five images
 # Submit the job to 6px
 
@@ -174,7 +174,7 @@ px.
   output(outputs).
     rotate({degrees: 90}).
     url('6px').
-    type('images/png').
+    type('image/png').
   save
 </code></pre>
 
@@ -213,7 +213,7 @@ resized_outputs = {
 # Add the hash of the images you want to add
 # Rotate the images 90 degress
 # The output url - 6px will put it on their hosting platform
-# Tell 6px to output in a png - Possible options: ['images/gif', 'images/jpeg', 'images/png'] - Default: 'images/jpeg'
+# Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the all five images
 # Submit the job to 6px
 
@@ -222,11 +222,11 @@ px.
   output(rotated_outputs).
     rotate({degrees: 90}).
     url('6px').
-    type('images/png').
+    type('image/png').
   output(resized_outputs).
     resize({width: 200, width: 200}).
     url('6px').
-    type('images/png').
+    type('image/png').
   save
 </code></pre>
 
@@ -337,13 +337,13 @@ Full documentation of method options: [here](https://github.com/6px-io/6px-api-d
 
 #### Type
 
-Tell 6px to output in a png - Possible options: ['images/gif', 'images/jpeg', 'images/png'] - Default: 'images/jpeg'
+Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 
 <pre><code>px.
   inputs(images).
   output(outputs).
     rotate({degrees: 90}).
-    type('images/png').
+    type('image/png').
   save
 </code></pre>
 
