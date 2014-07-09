@@ -1,6 +1,7 @@
 require 'json'
+require 'base64'
 
-class SixPX
+class PX
   include HTTParty
 
   METHOD_NAMES = [:rotate, :resize, :crop, :filter, :layer, :analyze]
@@ -17,10 +18,9 @@ class SixPX
     self.class.default_params key: api_key, secret: api_secret
     @payload = {}
     @inputs = {}
+    @outputs = []
+    @output = {}
     @methods = []
-    @refs = {}
-    @type = 'jpeg'
-    @url = ''
     @data = {}
     @callback = ''
   end
@@ -35,27 +35,38 @@ class SixPX
     JSON.parse(response)
   end
 
-  # Sets images to that need to be processed
-  def inputs(inputs)
-    @inputs = inputs
+  def output(images)
+    @outputs << @output unless @output.empty?
+
+    @output = {
+      ref: images,
+      type: 'images/jpeg',
+      url: '',
+      methods: []
+    }
+
     self
   end
 
-  # Add whichs images to process
-  def refs(refs)
-    @refs = refs
+  # Sets images to that need to be processed
+  def inputs(inputs)
+    inputs.each do |k,v|
+      puts k, v
+      @inputs[k] = encode_image(v)
+    end
+
     self
   end
 
   # Sets what type the output should be in. Default is jpeg.
   def type(type)
-    @type = type
+    @output[:type] = type
     self
   end
 
   # Sets output url
   def url(url)
-    @url = url
+    @output[:url] = url
     self
   end
 
@@ -80,46 +91,67 @@ class SixPX
   end
 
   # Builds and sends the payload to 6px
-  def send
+  def save
     payload = build_payload.to_json
     empty_variables
+    puts payload
     response = self.class.post("jobs", body: payload).body
     JSON.parse(response)
   end
 
   private
 
+  # Replaces underscores with periods in hash
   def clean_up_search_params(params)
     parsed_hash = {}
     params.each {|i,k| parsed_hash[i.to_s.gsub('_', '.')] = k }
     parsed_hash
   end
 
+  # Encodes the images in Base64 if they are not hosted
+  def encode_image(url)
+    return url if URI.parse(url).scheme
+
+    raw_image = open(url, 'r').read
+    image_type = image_type(url)
+    encoded_image = Base64.encode64(raw_image)
+
+    "#{image_type};base64,#{encoded_image}"
+  end
+
+  def image_type(path)
+    png = Regexp.new("\x89PNG".force_encoding("binary"))
+    jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
+    jpg2 = Regexp.new("\xff\xd8\xff\xe1(.*){2}Exif".force_encoding("binary"))
+    case IO.read(path, 10)
+    when /^GIF8/ then 'images/gif'
+    when /^#{png}/ then 'images/png'
+    when /^#{jpg}/, /^#{jpg2}/ then 'images/jpg'
+    end
+  end
+
   # Add methods to method hash
   def add_method(method, options)
-    @methods << {
+    @output[:methods] << {
       'method' => method,
       'options' => options
     }
   end
 
-  # Builds the final payload to send
+  # Builds the final payload to save
   def build_payload
-    {
+    @outputs << @output
+
+    payload = {
       input: @inputs,
-      output: [
-        {
-          methods: @methods,
-          type: "image/#{@type}",
-          ref: @refs,
-          url: @url
-        }
-      ],
       data: @data,
       callback: {
         url: @callback
-      }
+      },
+      output: @outputs
     }
+
+    payload
   end
 
   # Resets instance variables after request is sent
@@ -127,10 +159,9 @@ class SixPX
     @payload = {}
     @inputs = {}
     @methods = []
-    @refs = {}
-    @type = 'jpeg'
-    @url = ''
     @data = {}
     @callback = ''
+    @outputs = []
+    @output = {}
   end
 end

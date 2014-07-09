@@ -1,6 +1,6 @@
 require '6px'
 
-six_px = SixPX.new(
+px = PX.new(
           user_id: USER_ID,
           api_key: API_KEY,
           api_secret: API_SECRET
@@ -12,24 +12,24 @@ images = {
 }
 
 puts "Sending layer request\n"
-response = six_px.
+response = px.
             inputs(images).
-            layer({opacity: 0.6, ref: 'thunderstorm'}).
-            url('6px').
-            refs({golden_gate: false}).
-            send
+            output({golden_gate: false}).
+              layer({opacity: 0.6, ref: 'thunderstorm'}).
+              url('6px').
+            save
 
 puts "Response:"
 puts response
 puts "\n"
 
 puts "Waiting for job to process"
-completed_job = six_px.jobs(job_id: response["id"])
+completed_job = px.jobs(job_id: response["id"])
 
 while completed_job["status"] == "pending"
   print "."
   sleep 1
-  completed_job = six_px.jobs(job_id: response["id"])
+  completed_job = px.jobs(job_id: response["id"])
 end
 
 puts "\n\n"

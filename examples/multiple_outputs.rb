@@ -11,8 +11,12 @@ images = {golden_gate: 'http://media.npr.org/assets/img/2012/05/26/golden-gate-t
 puts "Sending crop request\n"
 response = px.
             inputs(images).
-            output({golden_gate: false}).
+            output({golden_gate: 'cropped_golden_gate'}).
               crop({x: 0, y: 0, width: 250, height: 250}).
+            output({golden_gate: 'rotated_golden_gate'}).
+              rotate({degress: 90}).
+            output({golden_gate: 'resized_golden_gate'}).
+              resize({width: 500, height: 500}).
               url('6px').
             save
 

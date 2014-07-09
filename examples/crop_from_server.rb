@@ -6,12 +6,12 @@ px = PX.new(
           api_secret: API_SECRET
         )
 
-images = {golden_gate: 'http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg'}
+images = {car: './images/car.jpg'}
 
 puts "Sending crop request\n"
 response = px.
             inputs(images).
-            output({golden_gate: false}).
+            output({car: false}).
               crop({x: 0, y: 0, width: 250, height: 250}).
               url('6px').
             save

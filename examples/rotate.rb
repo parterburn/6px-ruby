@@ -1,6 +1,6 @@
 require '6px'
 
-six_px = SixPX.new(
+px = PX.new(
           user_id: USER_ID,
           api_key: API_KEY,
           api_secret: API_SECRET
@@ -9,24 +9,24 @@ six_px = SixPX.new(
 images = {golden_gate: 'http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg'}
 
 puts "Sending rotate request\n"
-response = six_px.
+response = px.
             inputs(images).
-            rotate({degrees: 90}).
-            url('6px').
-            refs({golden_gate: false}).
-            send
+            output({golden_gate: false}).
+              rotate({degrees: 90}).
+              url('6px').
+            save
 
 puts "Response:"
 puts response
 puts "\n"
 
 puts "Waiting for job to process"
-completed_job = six_px.jobs(job_id: response["id"])
+completed_job = px.jobs(job_id: response["id"])
 
 while completed_job["status"] == "pending"
   print "."
   sleep 1
-  completed_job = six_px.jobs(job_id: response["id"])
+  completed_job = px.jobs(job_id: response["id"])
 end
 
 puts "\n\n"
