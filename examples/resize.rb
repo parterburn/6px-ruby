@@ -1,9 +1,9 @@
 require '6px'
 
 px = PX.new(
-          user_id: USER_ID,
-          api_key: API_KEY,
-          api_secret: API_SECRET
+          user_id: 'USER_ID',
+          api_key: 'API_KEY',
+          api_secret: 'API_SECRET'
         )
 
 images = {golden_gate: 'http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg'}
@@ -12,7 +12,8 @@ puts "Sending resize request\n"
 response = px.
             inputs(images).
             output({golden_gate: false}).
-              resize({width: 500, height: 500}).
+              resize({width: 1000, height: 1000}).
+              tag('resized').
               url('6px').
             save
 
@@ -35,4 +36,4 @@ puts completed_job
 
 puts "\n"
 puts "Check out the completed image at the following url:"
-puts completed_job["processed"]["null"]["location"]
+puts  completed_job['processed']['resized']['output']['golden_gate']['location']

@@ -42,7 +42,8 @@ class PX
       ref: images,
       type: 'image/jpeg',
       url: '',
-      methods: []
+      methods: [],
+      tag: ''
     }
 
     self
@@ -67,6 +68,11 @@ class PX
   # Sets output url
   def url(url)
     @output[:url] = url
+    self
+  end
+
+  def tag(tag)
+    @output[:tag] = tag
     self
   end
 
@@ -116,7 +122,7 @@ class PX
     image_type = image_type(url)
     encoded_image = Base64.encode64(raw_image)
 
-    "#{image_type};base64,#{encoded_image}"
+    "data:#{image_type};base64,#{encoded_image}"
   end
 
   def image_type(path)

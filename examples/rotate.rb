@@ -1,9 +1,9 @@
 require '6px'
 
 px = PX.new(
-          user_id: USER_ID,
-          api_key: API_KEY,
-          api_secret: API_SECRET
+          user_id: '53b5d083a2d7c1d35cbe06bd',
+          api_key: 'a5420f5c70504c3de61c8be5c613e124',
+          api_secret: '2512cb111fea708222a787d5e77f0722'
         )
 
 images = {golden_gate: 'http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg'}
@@ -13,6 +13,7 @@ response = px.
             inputs(images).
             output({golden_gate: false}).
               rotate({degrees: 90}).
+              tag('rotated').
               url('6px').
             save
 
@@ -35,4 +36,4 @@ puts completed_job
 
 puts "\n"
 puts "Check out the completed image at the following url:"
-puts completed_job["processed"]["null"]["location"]
+puts  completed_job['processed']['rotated']['output']['golden_gate']['location']

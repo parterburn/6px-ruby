@@ -1,9 +1,9 @@
 require '6px'
 
 px = PX.new(
-          user_id: USER_ID,
-          api_key: API_KEY,
-          api_secret: API_SECRET
+          user_id: 'USER_ID',
+          api_key: 'API_KEY',
+          api_secret: 'API_SECRET'
         )
 
 images = {golden_gate: 'http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg'}
@@ -14,6 +14,7 @@ response = px.
             output({golden_gate: false}).
               analyze({type: 'color', context: 'palette'}).
               url('6px').
+              tag('image_colors').
             save
 
 puts "Response:"
@@ -31,4 +32,4 @@ end
 
 puts "\n\n"
 puts "Heres your completed job:"
-puts completed_job
+p completed_job['processed']['image_colors']['output']['golden_gate']['location']

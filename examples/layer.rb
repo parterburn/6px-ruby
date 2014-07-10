@@ -1,9 +1,9 @@
 require '6px'
 
 px = PX.new(
-          user_id: USER_ID,
-          api_key: API_KEY,
-          api_secret: API_SECRET
+          user_id: 'USER_ID',
+          api_key: 'API_KEY',
+          api_secret: 'API_SECRET'
         )
 
 images = {
@@ -17,6 +17,7 @@ response = px.
             output({golden_gate: false}).
               layer({opacity: 0.6, ref: 'thunderstorm'}).
               url('6px').
+              tag('layered_image').
             save
 
 puts "Response:"
@@ -38,4 +39,4 @@ puts completed_job
 
 puts "\n"
 puts "Check out the completed image at the following url:"
-puts completed_job["processed"]["null"]["location"]
+p completed_job['processed']['layered_image']['output']['golden_gate']['location']

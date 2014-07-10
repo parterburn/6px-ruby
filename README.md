@@ -127,6 +127,7 @@ outputs =  {snowboarding: false}
 # The output url - 6px will put it on their hosting platform
 # Tell 6px to output in a gif - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the 'snowboarding' image and rename it 'sideways_snowboarding'
+# Contains the image details in a 'rotated_image' hash in the job json
 # Submit the job to 6px
 
 px.
@@ -135,6 +136,7 @@ px.
     rotate({degrees: 90}).
     url('6px').
     type('image/png').
+    tag('rotated_image').
   save
 </code></pre>
 
@@ -145,20 +147,20 @@ px = PX.new(user_id: YOUR_USER_ID, api_key: YOUR_API_KEY, api_secret: YOUR_SECRE
 
 # Setup images to be processed
 images =  {
-  img1: 'URL_TO_IMG1',
-  img2: 'URL_TO_IMG2',
-  img3: 'URL_TO_IMG3',
-  img4: 'URL_TO_IMG4',
-  img5: 'URL_TO_IMG5'
+  img1: "http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg",
+  img2: "http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg",
+  img3: "http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg",
+  img4: "http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg",
+  img5: "http://media.npr.org/assets/img/2012/05/26/golden-gate-today_wide-8462da9949bef3d5c02aaa1f78e0a4344a3a597c.jpg"
 }
 
 # Setup outputs name mapping
 outputs = {
-  img1: 'processed_img1,
-  img2: 'processed_img2,
-  img3: 'processed_img3,
-  img4: 'processed_img4,
-  img5: 'processed_img5
+  img1: 'processed_img1',
+  img2: 'processed_img2',
+  img3: 'processed_img3',
+  img4: 'processed_img4',
+  img5: 'processed_img5'
 }
 
 # The authenticated object
@@ -167,6 +169,7 @@ outputs = {
 # The output url - 6px will put it on their hosting platform
 # Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the all five images
+# Contains the image's details in a 'rotated_image' hash in the job json
 # Submit the job to 6px
 
 px.
@@ -175,6 +178,7 @@ px.
     rotate({degrees: 90}).
     url('6px').
     type('image/png').
+    tag('rotated_image').
   save
 </code></pre>
 
@@ -211,10 +215,11 @@ resized_outputs = {
 
 # The authenticated object
 # Add the hash of the images you want to add
-# Rotate the images 90 degress
+# Each output block builds up another processing job that can be done in one API call
 # The output url - 6px will put it on their hosting platform
 # Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the all five images
+# Contains the image's details in a 'rotated_image' and 'resized_outputs' hash in the job json
 # Submit the job to 6px
 
 px.
@@ -242,9 +247,8 @@ Full documentation of method options: [here](https://github.com/6px-io/6px-api-d
 
 <pre><code>px.
   inputs(images).
-    output(outputs).
+  output(outputs).
     rotate({degrees: 90}).
-    url('6px').
   save
 </code></pre>
 
@@ -330,10 +334,23 @@ Full documentation of method options: [here](https://github.com/6px-io/6px-api-d
     resize({height: 400, width: 400}).
     crop({height: 400, width: 400, x: 0, y: 0}).
     filter({sepia: 70, gama: 45}).
+    tag('so_much_manipulation').
   save
 </code></pre>
 
 ## Additional Options
+
+#### Tag
+
+You can tag each output in the job for easier access to each images results
+
+<pre><code>px.
+  inputs(images).
+  output(outputs).
+    rotate({degrees: 90}).
+    tag('rotated_img').
+  save
+</code></pre>
 
 #### Type
 

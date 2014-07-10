@@ -1,9 +1,9 @@
 require '6px'
 
 px = PX.new(
-          user_id: USER_ID,
-          api_key: API_KEY,
-          api_secret: API_SECRET
+          user_id: 'USER_ID',
+          api_key: 'API_KEY',
+          api_secret: 'API_SECRET'
         )
 
 images = {car: './images/car.jpg'}
@@ -12,8 +12,9 @@ puts "Sending crop request\n"
 response = px.
             inputs(images).
             output({car: false}).
-              crop({x: 0, y: 0, width: 250, height: 250}).
+              crop({x: 0, y: 0, width: 1000, height: 1000}).
               url('6px').
+              tag('cropped_from_disk').
             save
 
 puts "Response:"
@@ -35,4 +36,4 @@ puts completed_job
 
 puts "\n"
 puts "Check out the completed image at the following url:"
-puts completed_job["processed"]["null"]["location"]
+p completed_job['processed']['cropped_from_disk']['output']['car']['location']
