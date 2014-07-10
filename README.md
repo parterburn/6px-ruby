@@ -124,10 +124,10 @@ outputs =  {snowboarding: false}
 # The authenticated object
 # Add the hash of the image you want to add
 # Rotate the image 90 degress
-# The output url - 6px will put it on their hosting platform
+# The output url - '6px' will put it on their 6px's hosting platform
 # Tell 6px to output in a gif - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the 'snowboarding' image and rename it 'sideways_snowboarding'
-# Contains the image details in a 'rotated_image' hash in the job json
+# Contains the image details in a 'rotated_image' processed hash in the job json
 # Submit the job to 6px
 
 px.
@@ -166,10 +166,10 @@ outputs = {
 # The authenticated object
 # Add the hash of the images you want to add
 # Rotate the images 90 degress
-# The output url - 6px will put it on their hosting platform
+# The output url - '6px' will put it on their 6px's hosting platform
 # Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the all five images
-# Contains the image's details in a 'rotated_image' hash in the job json
+# Contains the image's details in a 'rotated_image' hash in the processed job json
 # Submit the job to 6px
 
 px.
@@ -216,10 +216,10 @@ resized_outputs = {
 # The authenticated object
 # Add the hash of the images you want to add
 # Each output block builds up another processing job that can be done in one API call
-# The output url - 6px will put it on their hosting platform
+# The output url - '6px' will put it on their 6px's hosting platform
 # Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'image/png'] - Default: 'image/jpeg'
 # Tells 6px to process the all five images
-# Contains the image's details in a 'rotated_image' and 'resized_outputs' hash in the job json
+# Contains the image's details in a 'rotated_image' and 'resized_outputs' hash in the processed job json
 # Submit the job to 6px
 
 px.
