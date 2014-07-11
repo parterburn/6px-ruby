@@ -1,5 +1,5 @@
-Ruby Wrapper for 6px API
-======================================
+Ruby gem for 6px
+====================
 
 ### Requirements
 
