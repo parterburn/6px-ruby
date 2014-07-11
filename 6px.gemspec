@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = '6px'
-  s.version     = '1.0.2'
+  s.version     = '1.0.3'
   s.date        = '2010-04-28'
   s.summary     = "6px API wrapper"
   s.description = "Ruby wrapper for 6px's API"
