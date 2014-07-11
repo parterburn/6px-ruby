@@ -366,7 +366,7 @@ Tell 6px to output in a png - Possible options: ['image/gif', 'image/jpeg', 'ima
 
 #### Data
 
-Add addtional custom data on your job
+Add additional custom data on your job
 
 <pre><code>px.
   inputs(images).
@@ -384,12 +384,10 @@ Add a callback that will POST the job params to a url specified
   inputs(images).
   output(outputs).
     rotate({degrees: 90}).
-  callback({url: 'http://mattl.co'}).
+  callback({url: 'https://your-domain.com/callback'}).
   save
 </code></pre>
 
 ## Issue
 
-Having issues or found bugs?
-
-Open an issue and I will respond back as quickly as I can!
+Please let us how we can make this gem better. If you have a specific feature request or found a bug, please create a GitHub issue.
