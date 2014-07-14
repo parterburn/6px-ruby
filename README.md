@@ -34,7 +34,7 @@ To list all jobs: `jobs = px.jobs`
 
 ### Pagination
 
-To paginate the returned json you can do the following:
+To paginate the returned JSON you can do the following:
 
 <pre><code># This will return the second page of jobs with the default amount per page of 10.
 jobs = px.jobs(page: 2)
@@ -388,6 +388,9 @@ Add a callback that will POST the job params to a url specified
   save
 </code></pre>
 
-## Issue
+Now that we have covered some of the simple use cases, feel free to refer to our documentation!
 
-Please let us how we can make this gem better. If you have a specific feature request or found a bug, please create a GitHub issue.
+##[API Documentation](https://github.com/6px-io/6px-api-docs)
+
+Keep us posted on the cool stuff you are doing by sending us an email at <ops@6px.io>. We are constantly trying to improve the user experience. If you come across any issues or have suggestions please create an [issue ticket.](https://github.com/6px-io/6px-js/issues)
+
