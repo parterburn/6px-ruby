@@ -392,5 +392,5 @@ Now that we have covered some of the simple use cases, feel free to refer to our
 
 ##[API Documentation](https://github.com/6px-io/6px-api-docs)
 
-Keep us posted on the cool stuff you are doing by sending us an email at <ops@6px.io>. We are constantly trying to improve the user experience. If you come across any issues or have suggestions please create an [issue ticket.](https://github.com/6px-io/6px-js/issues)
+Keep us posted on the cool stuff you are doing by sending us an email at <ops@6px.io>. We are constantly trying to improve the user experience. If you come across any issues or have suggestions please create an [issue ticket.](https://github.com/6px-io/6px-ruby/issues)
 
