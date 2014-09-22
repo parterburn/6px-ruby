@@ -6,7 +6,7 @@ class PX
 
   METHOD_NAMES = [:rotate, :resize, :crop, :filter, :layer, :analyze]
 
-  base_uri 'https://api.6px.io/v1/'
+  base_uri ''
   headers 'Content-Type' => 'application/json'
 
   # Set up the authroized url and parameters
@@ -14,9 +14,8 @@ class PX
     user_id = args[:user_id]
     api_key = args[:api_key]
     api_secret = args[:api_secret]
-    self.class.base_uri << "/users/#{user_id}/"
+    self.class.base_uri "https://api.6px.io/v1/users/#{user_id}"
     self.class.default_params key: api_key, secret: api_secret
-    @payload = {}
     @inputs = {}
     @outputs = []
     @output = {}
@@ -29,7 +28,7 @@ class PX
   def jobs(*query)
     query = query.first
     job_id = query.delete(:job_id) if query
-    url = job_id ? "jobs/#{job_id}" : "jobs"
+    url = job_id ? "/jobs/#{job_id}" : "/jobs"
     query = clean_up_search_params(query)
     response = self.class.get(url, query: query).body
     JSON.parse(response)
@@ -100,9 +99,8 @@ class PX
   def save
     payload = build_payload.to_json
     empty_variables
-    puts payload
-    response = self.class.post("jobs", body: payload).body
-    JSON.parse(response)
+    response = self.class.post("/jobs", body: payload)
+    JSON.parse(response.body)
   end
 
   private
@@ -162,7 +160,6 @@ class PX
 
   # Resets instance variables after request is sent
   def empty_variables
-    @payload = {}
     @inputs = {}
     @methods = []
     @data = {}
