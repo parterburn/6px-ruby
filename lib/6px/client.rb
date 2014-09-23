@@ -29,7 +29,7 @@ class PX
     query = query.first
     job_id = query.delete(:job_id) if query
     url = job_id ? "/jobs/#{job_id}" : "/jobs"
-    query = clean_up_search_params(query)
+    query = clean_up_search_params(query) if query
     response = self.class.get(url, query: query).body
     JSON.parse(response)
   end
