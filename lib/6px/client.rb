@@ -51,7 +51,6 @@ class PX
   # Sets images to that need to be processed
   def inputs(inputs)
     inputs.each do |k,v|
-      puts k, v
       @inputs[k] = encode_image(v)
     end
 
