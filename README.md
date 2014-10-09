@@ -384,7 +384,7 @@ Add a callback that will POST the job params to a url specified
   inputs(images).
   output(outputs).
     rotate({degrees: 90}).
-  callback({url: 'https://your-domain.com/callback'}).
+  callback('https://your-domain.com/callback').
   save
 </code></pre>
 
